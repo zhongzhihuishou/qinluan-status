@@ -45,6 +45,11 @@
       font-weight: 600;
       margin: 5px;
     }
+    .btn-download {
+      background: linear-gradient(135deg, #07c160 0%, #06ae56 100%);
+      font-size: 18px;
+      padding: 16px 40px;
+    }
     .btn-copy {
       background: linear-gradient(135deg, #10b981 0%, #059669 100%);
     }
@@ -95,9 +100,8 @@
     <span class="status">● 在线</span>
     
     <div class="qr-section">
-      <h3 style="color:#111;margin-bottom:10px;">📱 扫码打开 APP</h3>
       <div class="qr-code" id="qrCode"></div>
-      <p style="color:#666;font-size:13px;margin-top:10px;">扫描二维码，立即打开青鸾 APP</p>
+      <a href="#" class="btn btn-download" id="downloadBtn" target="_blank">📲 立即下载</a>
     </div>
     
     <div class="url-box">
@@ -115,9 +119,9 @@
       <p>➕ 添加到主屏幕，像 APP 一样使用</p>
       <div class="tips">
         <strong>💡 使用提示：</strong><br>
-        1. 扫描二维码直接打开 APP<br>
-        2. 或点击"立即访问"按钮<br>
-        3. 添加到主屏幕后，每次启动自动获取最新地址
+        1. 扫码或点击下载按钮，打开青鸾 APP<br>
+        2. 添加到主屏幕后，每次启动自动获取最新地址<br>
+        3. 支持语音输入和语音播报
       </div>
       <p class="update-time" style="color: #9ca3af; font-size: 0.85rem; margin-top: 10px;">
         更新时间：<span id="updateTime"></span>
@@ -131,9 +135,10 @@
     
     // 生成二维码（直接指向青鸾 APP）
     const qrApi = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(TUNNEL_URL)}`;
-    document.getElementById('qrCode').innerHTML = `<img src="${qrApi}" alt="APP 二维码" style="width:100%;height:100%;border-radius:8px;">`;
+    document.getElementById('qrCode').innerHTML = `<img src="${qrApi}" alt="下载二维码" style="width:100%;height:100%;border-radius:8px;">`;
     
-    // 设置访问按钮
+    // 设置下载按钮和访问按钮
+    document.getElementById('downloadBtn').href = TUNNEL_URL;
     document.getElementById('visit-btn').href = TUNNEL_URL;
     document.getElementById('tunnel-url').textContent = TUNNEL_URL;
     document.getElementById('updateTime').textContent = new Date().toLocaleString('zh-CN');
@@ -143,9 +148,6 @@
       navigator.clipboard.writeText(TUNNEL_URL);
       alert('✅ 地址已复制到剪贴板！');
     }
-    
-    // 自动跳转（可选）
-    // setTimeout(() => { window.location.href = TUNNEL_URL; }, 3000);
   </script>
 </body>
 </html>
